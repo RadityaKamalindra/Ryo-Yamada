@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ryo Yamada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 50px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #ffffff, #888);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #888;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #ffffff;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.5) 0%, rgba(26, 26, 26, 0.6) 100%),
+                        url("ryo.jpg") center/cover no-repeat;
+            animation: fadeInOut 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05), transparent 50%);
+            backdrop-filter: blur(2px);
+            z-index: 1;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero p {
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #ffffff;
+            animation: fadeInUp 1s ease 0.2s both;
+            text-shadow: 1px 1px 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .portfolio {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 100px 50px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        /* Variasi ukuran grid */
+        .gallery-item:nth-child(1) {
+            grid-column: span 8;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(2) {
+            grid-column: span 4;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(3) {
+            grid-column: span 4;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(4) {
+            grid-column: span 5;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(5) {
+            grid-column: span 7;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(6) {
+            grid-column: span 7;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(7) {
+            grid-column: span 5;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(8) {
+            grid-column: span 6;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(9) {
+            grid-column: span 6;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(10) {
+            grid-column: span 4;
+            grid-row: span 2;
+        }
+
+        .gallery-item:nth-child(11) {
+            grid-column: span 8;
+            grid-row: span 1;
+        }
+
+        .gallery-item:nth-child(12) {
+            grid-column: span 8;
+            grid-row: span 2;
+        }
+
+        /* Animasi dari kiri dan kanan */
+        .gallery-item.slide-in-left {
+            animation: slideInLeft 0.8s ease forwards;
+        }
+
+        .gallery-item.slide-in-right {
+            animation: slideInRight 0.8s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .gallery-item.slide-out-left {
+            animation: slideOutLeft 0.8s ease forwards;
+        }
+
+        .gallery-item.slide-out-right {
+            animation: slideOutRight 0.8s ease forwards;
+        }
+
+        @keyframes slideOutLeft {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 30px;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .overlay h3 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .overlay p {
+            font-size: 14px;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            background: #0a0a0a;
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 10px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .social-links a:hover {
+            background: #ffffff;
+            color: #0a0a0a;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: repeat(6, 1fr);
+            }
+
+            .gallery-item:nth-child(1),
+            .gallery-item:nth-child(4),
+            .gallery-item:nth-child(7),
+            .gallery-item:nth-child(10),
+            .gallery-item:nth-child(11),
+            .gallery-item:nth-child(12) {
+                grid-column: span 6;
+            }
+
+            .gallery-item:nth-child(2),
+            .gallery-item:nth-child(3),
+            .gallery-item:nth-child(5),
+            .gallery-item:nth-child(6),
+            .gallery-item:nth-child(8),
+            .gallery-item:nth-child(9) {
+                grid-column: span 3;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 42px;
+            }
+            
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .gallery-item {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+                min-height: 250px;
+            }
+            
+            header {
+                padding: 20px 20px;
+            }
+            
+            .portfolio {
+                padding: 80px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">GAPUU3</div>
+            <ul class="nav-links">
+                <li><a href="#home">HOME</a></li>
+                <li><a href="#gallery">GALLERY</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>RYO YAMADA</h1>
+            <p>MY ISTRI GWECH</p>
+        </div>
+    </section>
+
+    <section class="portfolio" id="gallery">
+        <h2 class="section-title">GALLERY</h2>
+        <div class="gallery">
+            <div class="gallery-item" data-direction="left">
+                <img src="https://images8.alphacoders.com/136/thumbbig-1363565.webp" alt="Architecture">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 1</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://images6.alphacoders.com/129/thumbbig-1299664.webp" alt="Portrait">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 2</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://images.alphacoders.com/129/thumbbig-1296307.webp" alt="Nature">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 3</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="left">
+                <img src="https://i.pinimg.com/1200x/4f/7f/5e/4f7f5ef35139d7499be8e1ef7030b02b.jpg" alt="Cityscape">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 4</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://images4.alphacoders.com/129/thumbbig-1298371.webp" alt="Forest">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 5</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="left">
+                <img src="https://images8.alphacoders.com/130/thumbbig-1302070.webp" alt="Minimalist">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 6</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://i.pinimg.com/1200x/73/e8/e3/73e8e329be3cbf567bbb8985090775fb.jpg" alt="Mountain">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 7</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="left">
+                <img src="https://images2.alphacoders.com/131/thumbbig-1312046.webp" alt="Sunset">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 8</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://images8.alphacoders.com/129/thumbbig-1296272.webp" alt="Ocean">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 9</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="left">
+                <img src="https://cdn.polyspeak.ai/speakmaster/dce35d1db6e04747f4ad9b17b0ab0aa1.webp" alt="Valley">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 10</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="right">
+                <img src="https://i.pinimg.com/736x/00/44/de/0044de6a836273e0a51376bc5c1c7488.jpg" alt="Winter">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 11</p>
+                </div>
+            </div>
+            <div class="gallery-item" data-direction="left">
+                <img src="https://i.pinimg.com/1200x/3d/f4/9d/3df49d1577e6f0dd297aed08ca027f11.jpg" alt="Desert">
+                <div class="overlay">
+                    <h3>Ryo Yamada</h3>
+                    <p>Photo 12</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>&copy; 2025 GALLERYYY BOSSS. ALL RIGHTS RESERVED.</p>
+        <div class="social-links">
+            <a href="#">INSTAGRAM</a>
+            <a href="#">BEHANCE</a>
+            <a href="#">EMAIL</a>
+        </div>
+    </footer>
+
+    <script>
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const direction = entry.target.dataset.direction;
+                
+                if (entry.isIntersecting) {
+                    if (direction === 'left') {
+                        entry.target.classList.remove('slide-out-left');
+                        entry.target.classList.add('slide-in-left');
+                    } else {
+                        entry.target.classList.remove('slide-out-right');
+                        entry.target.classList.add('slide-in-right');
+                    }
+                } else {
+                    if (direction === 'left') {
+                        entry.target.classList.remove('slide-in-left');
+                        entry.target.classList.add('slide-out-left');
+                    } else {
+                        entry.target.classList.remove('slide-in-right');
+                        entry.target.classList.add('slide-out-right');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
+
+
+// Designed by GAPUU3 anjai slebew ahhh cape bang ,,, udah lah jangan di ubah ubah yaa
